@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "crates/wasm_syntax",
+    "crates/wasm_syntax_expanded",
+    "crates/wasm_syntax_gen",
+]
