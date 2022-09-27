@@ -304,7 +304,7 @@ impl Decode for Name {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Module(Repeated<Section>);
+pub struct Module(pub Repeated<Section>);
 impl Encode for Module {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Module(sections) = self;
@@ -526,7 +526,7 @@ impl Decode for Section {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Custom(Name, Repeated<u8>);
+pub struct Custom(pub Name, pub Repeated<u8>);
 impl Encode for Custom {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Custom(name, bytes) = self;
@@ -544,7 +544,7 @@ impl Decode for Custom {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct FuncType(ResultType, ResultType);
+pub struct FuncType(pub ResultType, pub ResultType);
 impl Encode for FuncType {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let FuncType(r1, r2) = self;
@@ -568,7 +568,7 @@ impl Decode for FuncType {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct ResultType(Vec<ValType>);
+pub struct ResultType(pub Vec<ValType>);
 impl Encode for ResultType {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let ResultType(tys) = self;
@@ -753,7 +753,7 @@ impl Decode for VecType {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Import(Name, Name, ImportDesc);
+pub struct Import(pub Name, pub Name, pub ImportDesc);
 impl Encode for Import {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Import(module, import_name, desc) = self;
@@ -834,7 +834,7 @@ impl Decode for ImportDesc {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct TableType(RefType, Limits);
+pub struct TableType(pub RefType, pub Limits);
 impl Encode for TableType {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let TableType(et, lim) = self;
@@ -852,7 +852,7 @@ impl Decode for TableType {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct MemType(Limits);
+pub struct MemType(pub Limits);
 impl Encode for MemType {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let MemType(lim) = self;
@@ -867,7 +867,7 @@ impl Decode for MemType {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct GlobalType(ValType, Mut);
+pub struct GlobalType(pub ValType, pub Mut);
 impl Encode for GlobalType {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let GlobalType(t, m) = self;
@@ -958,7 +958,7 @@ impl Decode for Mut {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Table(TableType);
+pub struct Table(pub TableType);
 impl Encode for Table {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Table(tt) = self;
@@ -973,7 +973,7 @@ impl Decode for Table {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Mem(MemType);
+pub struct Mem(pub MemType);
 impl Encode for Mem {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Mem(mt) = self;
@@ -988,7 +988,7 @@ impl Decode for Mem {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Global(GlobalType, Expr);
+pub struct Global(pub GlobalType, pub Expr);
 impl Encode for Global {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Global(gt, e) = self;
@@ -1006,7 +1006,7 @@ impl Decode for Global {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Export(Name, ExportDesc);
+pub struct Export(pub Name, pub ExportDesc);
 impl Encode for Export {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Export(nm, d) = self;
@@ -1242,7 +1242,7 @@ impl Decode for ElemKind {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Code(u32, Func);
+pub struct Code(pub u32, pub Func);
 impl Encode for Code {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Code(size, code) = self;
@@ -1260,7 +1260,7 @@ impl Decode for Code {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Func(Vec<Locals>, Expr);
+pub struct Func(pub Vec<Locals>, pub Expr);
 impl Encode for Func {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Func(locals, e) = self;
@@ -1278,7 +1278,7 @@ impl Decode for Func {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Locals(u32, ValType);
+pub struct Locals(pub u32, pub ValType);
 impl Encode for Locals {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Locals(n, t) = self;
@@ -1354,7 +1354,7 @@ impl Decode for Data {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct TypeIdx(u32);
+pub struct TypeIdx(pub u32);
 impl Encode for TypeIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let TypeIdx(x) = self;
@@ -1369,7 +1369,7 @@ impl Decode for TypeIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct TableIdx(u32);
+pub struct TableIdx(pub u32);
 impl Encode for TableIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let TableIdx(x) = self;
@@ -1384,7 +1384,7 @@ impl Decode for TableIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct FuncIdx(u32);
+pub struct FuncIdx(pub u32);
 impl Encode for FuncIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let FuncIdx(x) = self;
@@ -1399,7 +1399,7 @@ impl Decode for FuncIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct MemIdx(u32);
+pub struct MemIdx(pub u32);
 impl Encode for MemIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let MemIdx(x) = self;
@@ -1414,7 +1414,7 @@ impl Decode for MemIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct GlobalIdx(u32);
+pub struct GlobalIdx(pub u32);
 impl Encode for GlobalIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let GlobalIdx(x) = self;
@@ -1429,7 +1429,7 @@ impl Decode for GlobalIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct LabelIdx(u32);
+pub struct LabelIdx(pub u32);
 impl Encode for LabelIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let LabelIdx(x) = self;
@@ -1444,7 +1444,7 @@ impl Decode for LabelIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct LocalIdx(u32);
+pub struct LocalIdx(pub u32);
 impl Encode for LocalIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let LocalIdx(x) = self;
@@ -1459,7 +1459,7 @@ impl Decode for LocalIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct ElemIdx(u32);
+pub struct ElemIdx(pub u32);
 impl Encode for ElemIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let ElemIdx(x) = self;
@@ -1474,7 +1474,7 @@ impl Decode for ElemIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct DataIdx(u32);
+pub struct DataIdx(pub u32);
 impl Encode for DataIdx {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let DataIdx(x) = self;
@@ -1489,7 +1489,7 @@ impl Decode for DataIdx {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Expr(Repeated<Instr>);
+pub struct Expr(pub Repeated<Instr>);
 impl Encode for Expr {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let Expr(instrs) = self;
@@ -3383,7 +3383,7 @@ impl Decode for Else {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct MemArg(u32, u32);
+pub struct MemArg(pub u32, pub u32);
 impl Encode for MemArg {
     fn encode(&self, buffer: &mut Vec<u8>) {
         let MemArg(align, offset) = self;

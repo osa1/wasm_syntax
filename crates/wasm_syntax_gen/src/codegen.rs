@@ -15,7 +15,7 @@ pub fn codegen(grammar: &Grammar) -> TokenStream {
             let mut enum_alts: Vec<TokenStream> = Vec::with_capacity(productions.len());
             for production in productions {
                 let alt_name = &production.rhs;
-                let fields = production_fields(&production.symbols);
+                let fields = enum_fields(&production.symbols);
                 enum_alts.push(quote!(#alt_name(#fields)));
             }
 
@@ -33,7 +33,7 @@ pub fn codegen(grammar: &Grammar) -> TokenStream {
         } else {
             // struct
             let production = &productions[0];
-            let fields = production_fields(&production.symbols);
+            let fields = struct_fields(&production.symbols);
 
             impls.push(quote!(
                 #[derive(Debug, PartialEq)]
@@ -128,7 +128,7 @@ impl Grammar {
     }
 }
 
-fn production_fields(symbols: &[Symbol]) -> TokenStream {
+fn enum_fields(symbols: &[Symbol]) -> TokenStream {
     let mut fields: Vec<TokenStream> = Vec::with_capacity(symbols.len());
     for symbol in symbols {
         match symbol {
@@ -137,6 +137,17 @@ fn production_fields(symbols: &[Symbol]) -> TokenStream {
         }
     }
     quote!(#(#fields,)*)
+}
+
+fn struct_fields(symbols: &[Symbol]) -> TokenStream {
+    let mut fields: Vec<TokenStream> = Vec::with_capacity(symbols.len());
+    for symbol in symbols {
+        match symbol {
+            Symbol::Literal(_) => {}
+            Symbol::Bound(_, ty) => fields.push(bound_symbol_type(ty)),
+        }
+    }
+    quote!(#(pub #fields,)*)
 }
 
 fn generate_enum_encoder(type_name: &syn::Ident, productions: &[Production]) -> TokenStream {
