@@ -703,8 +703,8 @@ wasm_grammar! {
         0x20 x:LocalIdx = LocalGet,
         0x21 x:LocalIdx = LocalSet,
         0x22 x:LocalIdx = LocalTee,
-        0x23 x:LocalIdx = GlobalGet,
-        0x24 x:LocalIdx = GlobalSet,
+        0x23 x:GlobalIdx = GlobalGet,
+        0x24 x:GlobalIdx = GlobalSet,
 
         //
         // Table instructions

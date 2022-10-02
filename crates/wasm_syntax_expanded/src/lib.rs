@@ -1531,8 +1531,8 @@ pub enum Instr {
     LocalGet(LocalIdx),
     LocalSet(LocalIdx),
     LocalTee(LocalIdx),
-    GlobalGet(LocalIdx),
-    GlobalSet(LocalIdx),
+    GlobalGet(GlobalIdx),
+    GlobalSet(GlobalIdx),
     TableGet(TableIdx),
     TableSet(TableIdx),
     TableInit(ElemIdx, TableIdx),
@@ -2536,13 +2536,13 @@ impl Decode for Instr {
             }
             [35u8, ..] => {
                 buffer = &buffer[1usize..];
-                let (x, buffer_) = LocalIdx::decode(buffer)?;
+                let (x, buffer_) = GlobalIdx::decode(buffer)?;
                 buffer = buffer_;
                 Ok((Instr::GlobalGet(x), buffer))
             }
             [36u8, ..] => {
                 buffer = &buffer[1usize..];
-                let (x, buffer_) = LocalIdx::decode(buffer)?;
+                let (x, buffer_) = GlobalIdx::decode(buffer)?;
                 buffer = buffer_;
                 Ok((Instr::GlobalSet(x), buffer))
             }
