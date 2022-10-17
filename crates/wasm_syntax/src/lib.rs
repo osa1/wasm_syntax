@@ -593,7 +593,7 @@ wasm_grammar! {
     //
 
     Code {
-        size:u32 code:Func = Code,
+        code:sized(Func) = Code,
     }
 
     Func {

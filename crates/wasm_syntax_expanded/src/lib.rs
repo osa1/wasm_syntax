@@ -1242,21 +1242,18 @@ impl Decode for ElemKind {
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
-pub struct Code(pub u32, pub Func);
+pub struct Code(pub Sized<Func>);
 impl Encode for Code {
     fn encode(&self, buffer: &mut Vec<u8>) {
-        let Code(size, code) = self;
-        size.encode(buffer);
+        let Code(code) = self;
         code.encode(buffer);
     }
 }
 impl Decode for Code {
     fn decode(mut buffer: &[u8]) -> DecodeResult<Code> {
-        let (size, buffer_) = u32::decode(buffer)?;
+        let (code, buffer_) = Sized::<Func>::decode(buffer)?;
         buffer = buffer_;
-        let (code, buffer_) = Func::decode(buffer)?;
-        buffer = buffer_;
-        Ok((Code(size, code), buffer))
+        Ok((Code(code), buffer))
     }
 }
 #[derive(:: core :: fmt :: Debug, :: core :: cmp :: PartialEq)]
